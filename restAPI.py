@@ -23,6 +23,18 @@ class Pass(Resource):
             json.dump(passwords, outfile)
         outfile.close()    
         return passwords, 200
+    
+    def post2(self):
+        file = open("db.json","r")
+        passwords = json.loads(file.read())
+        file.close()
+
+        for key, value in request.args.items():
+            passwords["{}".format(key)] = value
+        with open("db.json", "w") as outfile:
+            json.dump(passwords, outfile)
+        outfile.close()    
+        return passwords, 200
         
 api.add_resource(Pass, "/pass")
 
